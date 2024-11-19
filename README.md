@@ -1,6 +1,5 @@
 # baralho.py
 
-
 from random import shuffle
 
 class Baralho:
