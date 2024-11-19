@@ -38,15 +38,18 @@ class Baralho:
     
 
 class Batalha:
-    def __init__(self):
+    def __init__(self, numero_jogadores=2, n_max_rodadas=2000):
+        self.numero_jogadores = numero_jogadores
+        self.n_max_rodadas = n_max_rodadas
         self.baralho = Baralho()
         self.jogador_a = []
         self.jogador_b = []
         self.acumuladas = []
         
     def iniciar(self):
-        nome_a = input('Nome do jogador 1: ')
-        nome_b = input('Informe o nome do jogador 2: ')
+        print('\nQue os jogos comecem!')
+        nome_a = input('Insira o nome do jogador 1: ')
+        nome_b = input('Insira o nome do jogador 2: ')
         
         self.baralho.embaralhar()
         self.baralho.distribuir(self.jogador_a, self.jogador_b)
@@ -57,10 +60,11 @@ class Batalha:
         while self.jogador_a and self.jogador_b and rodada <= self.n_max_rodadas:
             print(f'\n--- Rodada {rodada} ---')
 
-            # Verificar se algum jogador não tem mais cartas
+          
             if not self.jogador_a or not self.jogador_b:
-                break  # Interrompe o loop se algum jogador ficar sem cartas
-            print(f"Cartas restantes: Jogador 1 - {len(self.jogador_a)} cartas, Jogador 2 - {len(self.jogador_b)} cartas")
+                break  
+            print(f'{nome_a}: {len(self.jogador_a)} cartas')
+            print(f'{nome_b}: {len(self.jogador_b)} cartas')
         
             carta_a = self.jogador_a.pop(0)
             carta_b = self.jogador_b.pop(0)
@@ -106,14 +110,16 @@ class Batalha:
 
     def exibir_vencedor(self, nome_a, nome_b):
         print("\n--- x --- x ---")
-        if self.jogador_a:
+        if len(self.jogador_a) > len(self.jogador_b):
             print(f'\n{nome_a} venceu o jogo')
-            print(f'{len(self.jogador_a)} cartas restantes')
-        elif self.jogador_b:
+        elif len(self.jogador_b) > len(self.jogador_a):
             print(f'\n{nome_b} venceu o jogo')
-            print(f'{len(self.jogador_b)} cartas restantes')
         else:
-            print('\nEmpatado')
+            print('\nEmpate')
+            
+        print(f'{nome_a}: {len(self.jogador_a)} cartas')
+        print(f'{nome_b}: {len(self.jogador_b)} cartas')
+        print()
 
 if __name__ == "__main__":
     batalha = Batalha(numero_jogadores=2, n_max_rodadas=2000)
